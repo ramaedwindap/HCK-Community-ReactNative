@@ -1,13 +1,11 @@
 import { Image, Text, View } from "react-native";
 import convertDate from "../helper/convertDate";
-import { AntDesign } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
+import { AntDesign, Ionicons } from '@expo/vector-icons';
 import readingTime from "../helper/readingTime";
 
 export default function PostCard({ post }) {
-
     return (
-        <View style={{ backgroundColor: "white", borderRadius: 5, overflow: "hidden", marginBottom: 10 }}>
+        <View style={{ backgroundColor: "white", overflow: "hidden", marginBottom: 15 }}>
             <Image
                 style={{ width: '100%', height: 200, }}
                 source={{
@@ -34,7 +32,7 @@ export default function PostCard({ post }) {
                 <View style={{ flexDirection: "row", flexWrap: 'wrap', alignItems: "center", marginBottom: 5, paddingLeft: 55 }}>
                     {post?.tags.map((tag) => {
                         return (
-                            <Text style={{ marginLeft: 10, fontSize: 13, fontWeight: 400 }}>
+                            <Text key={tag.id} style={{ marginLeft: 10, marginBottom: 3, fontSize: 13, fontWeight: 400 }}>
                                 #{tag?.name}
                             </Text>
                         )
