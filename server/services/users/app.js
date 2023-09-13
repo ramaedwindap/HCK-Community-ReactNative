@@ -4,7 +4,7 @@ if (process.env.NODE_ENV !== 'production') {
 const express = require('express')
 const router = require('./routes')
 const app = express()
-const { connect, getDatabase, db } = require('./config/mongodb')
+const { connect } = require('./config/mongodb')
 const port = process.env.PORT || 3000
 const cors = require('cors')
 
