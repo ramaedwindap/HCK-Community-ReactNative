@@ -8,13 +8,23 @@ export default function MainStack() {
 
     return (
         <LayoutScreen>
-            <Stack.Navigator>
-                <Stack.Screen options={{ headerShown: false }} name="Home" component={
-                    HomeScreen
-                } />
-                <Stack.Screen options={{ headerShown: false }} name="Detail" component={
-                    PostScreen
-                } />
+            <Stack.Navigator screenOptions={{ animation: "fade_from_bottom" }}>
+                <Stack.Screen
+                    options={{
+                        headerShown: false,
+                        gestureEnabled: true,
+                        gestureDirection: 'horizontal',
+                    }}
+                    name="Home"
+                    component={HomeScreen} />
+                <Stack.Screen
+                    options={{
+                        headerShown: false,
+                        gestureEnabled: true,
+                        gestureDirection: 'horizontal',
+                    }}
+                    name="Detail"
+                    component={PostScreen} />
             </Stack.Navigator>
         </LayoutScreen>
 

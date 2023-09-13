@@ -33,7 +33,7 @@ export default function PostScreen() {
     return (
         <SafeAreaView>
             <ScrollView>
-                <View style={{ backgroundColor: "white", overflow: "hidden", marginBottom: 15 }}>
+                <View style={{ backgroundColor: "white", overflow: "hidden" }}>
                     <Image
                         style={{ width: '100%', height: 200, }}
                         source={{
@@ -73,7 +73,7 @@ export default function PostScreen() {
                             })}
                         </View>
                         <View style={{ marginBottom: 5 }}>
-                            <Text style={{ marginRight: 5, fontSize: 15, fontWeight: 400 }}>{post?.content}  </Text>
+                            <Text style={{ marginRight: 5, fontSize: 15, fontWeight: 400 }}>{post?.content}</Text>
                         </View>
                     </View>
                 </View >
