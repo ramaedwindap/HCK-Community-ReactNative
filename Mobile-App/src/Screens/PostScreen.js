@@ -1,18 +1,20 @@
 import { Image, ScrollView, Text, View } from 'react-native'
 import convertDate from '../helper/convertDate'
-import readingTime from '../helper/readingTime'
-import { AntDesign, Ionicons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useRoute } from '@react-navigation/native';
 
 
 
 export default function PostScreen() {
     const [post, setPost] = useState({})
+    const route = useRoute()
+    const { slug } = route.params
 
     async function fetchPost() {
         try {
-            const res = await fetch("https://api-hck.sesber.com/public/posts/how-to-use-github-effectively-at-hackathons-619", { method: "GET" })
+            const res = await fetch(`https://api-hck.sesber.com/public/posts/${slug}`)
 
             const data = await res.json()
 
@@ -28,7 +30,6 @@ export default function PostScreen() {
         fetchPost()
     }, [])
 
-    console.log(post)
     return (
         <SafeAreaView>
             <ScrollView>
@@ -47,7 +48,7 @@ export default function PostScreen() {
                             <View>
                                 <Text style={{
                                     fontSize: 18, fontWeight: 600
-                                }}>asd</Text>
+                                }}>{post?.author?.username}</Text>
                                 <Text style={{ fontSize: 15 }}>
                                     {convertDate(post?.createdAt)}
                                 </Text>

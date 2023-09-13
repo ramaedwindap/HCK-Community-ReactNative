@@ -1,15 +1,25 @@
-import { Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import Navbar from "../components/Navbar";
-import HomeScreen from "./HomeScreen";
-import PostScreen from "./PostScreen";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function LayoutScreen() {
+export default function LayoutScreen({ children }) {
     return (
-        <View style={{ flex: 1 }}>
-            {/* <Text>LayoutScreen Screens</Text> */}
-            <Navbar />
-            {/* <HomeScreen /> */}
-            <PostScreen />
-        </View>
+        <SafeAreaView style={[
+            styles.container,
+            {
+                flexDirection: 'column',
+            },
+        ]}>
+            <View style={{ flex: 1 }}>
+                <Navbar />
+                {children}
+            </View>
+        </SafeAreaView>
     )
 }
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        // padding: 5,
+    },
+});
