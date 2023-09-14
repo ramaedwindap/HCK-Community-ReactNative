@@ -19,7 +19,7 @@ router.get('/public/posts', Controller.indexPublicPost)
 
 router.get('/public/posts/:slug', Controller.showPublicPost)
 
-router.use(authentication)
+// router.use(authentication)
 // Add User (Admin)
 router.post('/add-user', Controller.addUser)
 

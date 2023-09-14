@@ -39,6 +39,8 @@ class UserController {
 
             const validEmail = validateEmail(email)
 
+            // console.log(email, validEmail)
+
             if (!validEmail) throw { name: "invalidEmail" }
 
             const foundUser = await User.findOne({ email })
@@ -50,7 +52,7 @@ class UserController {
             const role = "admin"
 
             let user = await User.create({ username, email, password: encryptPass, role, phoneNumber, address })
-            res.status(201).json(user)
+            res.status(201).json({ message: `Success add user ${username} with id ${user.insertedId}` })
         } catch (error) {
             next(error)
         }
@@ -64,9 +66,8 @@ class UserController {
             if (!foundUser) throw { name: "userNotFound" }
 
             const deleted = await User.deleteById(id)
-
-            // console.log(res)
-            res.status(200).json(deleted)
+            // console.log(res)  `Success delete post id ${id}`
+            res.status(200).json({ message: `Success delete user ${foundUser.username} with id ${foundUser._id}` })
         } catch (error) {
             next(error)
             return
