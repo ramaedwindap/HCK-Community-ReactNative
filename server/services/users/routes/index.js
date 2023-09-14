@@ -12,6 +12,10 @@ router.get('/users', UserController.index)
 
 router.post('/users', UserController.store)
 
+router.delete('/users/:id', UserController.delete)
+
+router.get('/users/:id', UserController.show)
+
 router.use(errorHandler)
 
 module.exports = router

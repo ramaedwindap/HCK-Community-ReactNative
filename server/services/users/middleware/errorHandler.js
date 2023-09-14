@@ -4,19 +4,21 @@ function errorHandler(err, req, res, next) {
 
     switch (name) {
         case "usernameRequired":
-            res.status(400).json({ message: "Username is required!" })
+            return res.status(400).json({ message: "Username is required!" })
         case "emailRequired":
-            res.status(400).json({ message: "Email is required!" })
+            return res.status(400).json({ message: "Email is required!" })
         case "passwordRequired":
-            res.status(400).json({ message: "Password is required!" })
+            return res.status(400).json({ message: "Password is required!" })
         case "addressRequired":
-            res.status(400).json({ message: "Address is required!" })
+            return res.status(400).json({ message: "Address is required!" })
         case "phoneNumberRequired":
-            res.status(400).json({ message: "Phone Number is required!" })
+            return res.status(400).json({ message: "Phone Number is required!" })
         case "emailExists":
-            res.status(400).json({ message: "Email is already exists!" })
+            return res.status(400).json({ message: "Email is already exists!" })
         case "invalidPassLength":
-            res.status(400).json({ message: "Password length min 5!" })
+            return res.status(400).json({ message: "Password length min 5!" })
+        case "userNotFound":
+            return res.status(404).json({ message: "User is not found!" })
         default:
             res.status(500).json({ message: "Internal Server Error" })
     }

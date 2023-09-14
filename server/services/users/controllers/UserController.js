@@ -12,9 +12,22 @@ class UserController {
         }
     }
 
+    static async show(req, res, next) {
+        try {
+            const { id } = req.params
+            const user = await User.findByPk(id)
+
+            if (!user) throw { name: "userNotFound" }
+
+            res.status(200).json(user)
+        } catch (error) {
+            next(error)
+        }
+    }
+
     static async store(req, res, next) {
         try {
-            const { username, email, password, role, phoneNumber, address } = req.body
+            const { username, email, password, phoneNumber, address } = req.body
             // console.log(username, email, password, role, phoneNumber, address)
             if (!username) throw { name: "usernameRequired" }
             if (!email) throw { name: "emailRequired" }
@@ -29,16 +42,31 @@ class UserController {
 
             const encryptPass = hashPassword(password)
 
-            const roleInput = role ?? "admin"
+            const role = "admin"
 
-            let user = await User.create({ username, email, password: encryptPass, role: roleInput, phoneNumber, address })
-            res.status(200).json(user)
+            let user = await User.create({ username, email, password: encryptPass, role, phoneNumber, address })
+            res.status(201).json(user)
         } catch (error) {
             next(error)
         }
     }
 
-    // static
+    static async delete(req, res, next) {
+        try {
+            const { id } = req.params
+            const foundUser = await User.findByPk(id)
+            // console.log(foundUser)
+            if (!foundUser) throw { name: "userNotFound" }
+
+            const deleted = await User.deleteById(id)
+
+            // console.log(res)
+            res.status(200).json(deleted)
+        } catch (error) {
+            next(error)
+            return
+        }
+    }
 }
 
 
