@@ -1,4 +1,5 @@
 const { hashPassword } = require('../helper/bcrypt')
+const validateEmail = require('../helper/emailValidation')
 const User = require('../models/User')
 
 class UserController {
@@ -35,6 +36,10 @@ class UserController {
             if (!phoneNumber) throw { name: "phoneNumberRequired" }
             if (!address) throw { name: "addressRequired" }
             if (password.length < 5) throw { name: "invalidPassLength" }
+
+            const validEmail = validateEmail(email)
+
+            if (!validEmail) throw { name: "invalidEmail" }
 
             const foundUser = await User.findOne({ email })
             // console.log(foundUser)
