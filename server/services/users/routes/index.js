@@ -8,6 +8,8 @@ router.get('/', (req, res) => {
     res.send('Server is running')
 })
 
+router.get('/users', UserController.index)
+
 router.post('/users', UserController.store)
 
 router.use(errorHandler)

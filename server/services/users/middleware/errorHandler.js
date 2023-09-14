@@ -15,6 +15,8 @@ function errorHandler(err, req, res, next) {
             res.status(400).json({ message: "Phone Number is required!" })
         case "emailExists":
             res.status(400).json({ message: "Email is already exists!" })
+        case "invalidPassLength":
+            res.status(400).json({ message: "Password length min 5!" })
         default:
             res.status(500).json({ message: "Internal Server Error" })
     }

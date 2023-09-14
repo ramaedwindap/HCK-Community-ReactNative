@@ -6,8 +6,12 @@ class User {
         return getDatabase().collection("Users")
     }
 
-    static findOne(obj) {
+    static findOne(obj = {}) {
         return User.collection().findOne(obj)
+    }
+
+    static findAll() {
+        return User.collection().find().toArray()
     }
 
     static create({ username, email, password, role, phoneNumber, address }) {
