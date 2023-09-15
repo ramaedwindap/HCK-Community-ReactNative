@@ -5,7 +5,7 @@ const express = require('express')
 const router = require('./routes')
 const app = express()
 const { connect } = require('./config/mongodb')
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 4001
 const cors = require('cors')
 
 app.use(cors())

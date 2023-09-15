@@ -19,6 +19,8 @@ function errorHandler(err, req, res, next) {
             return res.status(400).json({ message: "Password length min 5!" })
         case "userNotFound":
             return res.status(404).json({ message: "User is not found!" })
+        case "invalidEmail":
+            return res.status(404).json({ message: "Invalid Email Address!" })
         default:
             res.status(500).json({ message: "Internal Server Error" })
     }
