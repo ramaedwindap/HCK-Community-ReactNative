@@ -11,7 +11,6 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Post.belongsTo(models.User, { foreignKey: "authorId", as: "author" })
       Post.belongsTo(models.Category, { foreignKey: "categoryId", as: "category" })
       Post.hasMany(models.Tag, { foreignKey: "postId", as: "tags" })
     }
@@ -55,7 +54,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     imgUrl: DataTypes.STRING,
     categoryId: DataTypes.INTEGER,
-    authorId: DataTypes.INTEGER
+    userMongoId: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Post',

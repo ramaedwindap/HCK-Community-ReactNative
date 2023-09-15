@@ -15,6 +15,7 @@ router.get('/posts/:slug', PostController.show)
 // USER 
 router.get('/users', UserController.index)
 router.post('/users', UserController.store)
+router.get('/users/:id', UserController.show)
 router.delete('/users/:id', UserController.delete)
 
 router.use(errorHandler)

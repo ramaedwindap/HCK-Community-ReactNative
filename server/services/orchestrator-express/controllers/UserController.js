@@ -11,6 +11,17 @@ class UserController {
         }
     }
 
+    static async show(req, res, next) {
+        try {
+            const { id } = req.params
+            const { data } = await axios({ url: baseUrl + '/users/' + id, method: "GET" })
+            // console.log(data)
+            res.status(200).json(data)
+        } catch (error) {
+            next(error)
+        }
+    }
+
     static async store(req, res, next) {
         try {
             const { username, email, password, phoneNumber, address } = req.body

@@ -53,7 +53,7 @@ const dataPost = [
     "content": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestiae provident, mollitia laudantium dolorum consectetur debitis iusto ipsum aperiam aliquam? Maiores odio minus veritatis voluptatem facere quasi necessitatibus ut voluptatibus sapiente!",
     "imgUrl": "https://res.cloudinary.com/practicaldev/image/fetch/s--EZFPG4_i--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/30uo500ajvfh3td06kp6.png",
     "categoryId": "1",
-    "authorId": "1"
+    "userMongoId": "65030077858bdf769179c3b0"
   },
   {
     "title": "Embracing the Power of AI in Everyday Life",
@@ -61,7 +61,7 @@ const dataPost = [
     "content": "Artificial Intelligence has woven itself into the fabric...",
     "imgUrl": "https://www.officelovin.com/wp-content/uploads/2014/05/twitter_hq_sf_13.jpg",
     "categoryId": "2",
-    "authorId": "1"
+    "userMongoId": "65030077858bdf769179c3b0"
   },
   {
     "title": "A Deep Dive into Quantum Computing",
@@ -69,7 +69,7 @@ const dataPost = [
     "content": "Quantum computers could revolutionize areas...",
     "imgUrl": "https://image.cnbcfm.com/api/v1/image/106198807-1571848425507handoutgooglepichaiquantum.jpg?v=1664024182",
     "categoryId": "3",
-    "authorId": "1"
+    "userMongoId": "65030077858bdf769179c3b0"
   },
   {
     "title": "The Future of Virtual Reality in Gaming",
@@ -77,7 +77,7 @@ const dataPost = [
     "content": "The world of virtual reality gaming is expanding...",
     "imgUrl": "https://www.technology-innovators.com/wp-content/uploads/2023/05/Virtual-Reality-Gaming-The-Evolution-of-Immersive-Entertainment-min.jpg",
     "categoryId": "4",
-    "authorId": "1"
+    "userMongoId": "65030077858bdf769179c3b0"
   },
   {
     "title": "Role of Big Data in Modern Business Decisions",
@@ -85,7 +85,7 @@ const dataPost = [
     "content": "Businesses today rely heavily on data-driven decisions...",
     "imgUrl": "https://quantuzglobal.com/media/filer_public/45/c8/45c82697-6729-45c3-959e-501dc4ba3dd7/data-analytics.jpg",
     "categoryId": "5",
-    "authorId": "1"
+    "userMongoId": "65030077858bdf769179c3b0"
   },
   {
     "title": "The Impact of Blockchain Beyond Cryptocurrencies",
@@ -93,7 +93,7 @@ const dataPost = [
     "content": "While most know blockchain for its role in cryptocurrencies...",
     "imgUrl": "https://umsu.ac.id/artikel/wp-content/uploads/2023/07/blockchain-750x375.webp",
     "categoryId": "6",
-    "authorId": "1"
+    "userMongoId": "65030077858bdf769179c3b0"
   }
 ].map((e) => {
   return {
