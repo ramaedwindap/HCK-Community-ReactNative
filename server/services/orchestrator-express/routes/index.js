@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
     }).catch(err => {
         console.error(err);
     });
-    res.send('Server is running!')
+    res.send({ msg: 'Server is running!' })
 })
 
 // POST

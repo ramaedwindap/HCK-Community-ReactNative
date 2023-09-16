@@ -83,10 +83,10 @@ const resolvers = {
                     const { data } = await axios({ url: "http://localhost:4001/users", method: "GET" })
                     result = data
                     await redis.set("users", JSON.stringify(data))
-                    console.log('set cache posts on redis')
+                    console.log('set cache users on redis')
                 } else {
                     result = JSON.parse(result)
-                    console.log('cache posts from redis')
+                    console.log('cache users from redis')
                 }
 
                 return result
@@ -105,24 +105,38 @@ const resolvers = {
         },
         posts: async function () {
             try {
-                const { data } = await axios({ url: "http://localhost:4002/posts", method: "GET" })
-                // console.log(data)
-                const res = await Promise.all(data.map(async (post) => {
-                    try {
-                        const { data: dataUser } = await axios({ url: "http://localhost:4001/users/" + post.userMongoId, method: "GET" });
-                        return {
-                            ...post,
-                            user: dataUser
-                        };
-                    } catch (error) {
-                        return {
-                            ...post,
-                            user: null
-                        };
-                    }
-                }));
-                // console.log(res);
-                return res;
+                let result = await redis.get("posts")
+
+                if (!result) {
+                    const { data } = await axios({ url: "http://localhost:4002/posts", method: "GET" })
+                    // console.log(data)
+                    const res = await Promise.all(data.map(async (post) => {
+                        try {
+                            const { data: dataUser } = await axios({ url: "http://localhost:4001/users/" + post.userMongoId, method: "GET" });
+                            return {
+                                ...post,
+                                user: dataUser
+                            };
+                        } catch (error) {
+                            return {
+                                ...post,
+                                user: null
+                            };
+                        }
+                    }));
+                    // console.log(res, "ressssssssss")
+
+                    await redis.set("posts", JSON.stringify(res))
+
+                    result = res
+
+                    console.log('set cache posts on redis')
+                } else {
+                    result = JSON.parse(result)
+                    console.log('cache posts from redis')
+                }
+                // console.log(result);
+                return result;
             } catch (error) {
                 throw new Error(error.response ? error.response.data.message : error.message);
             }
@@ -198,6 +212,9 @@ const resolvers = {
                     }
                 })
                 // console.log(data)
+
+                await redis.del("posts")
+
                 return {
                     message: data.message,
                 };
@@ -208,6 +225,8 @@ const resolvers = {
         deletePost: async function (_, { id }) {
             try {
                 const { data } = await axios({ url: "http://localhost:4002/posts/" + id, method: "DELETE" })
+
+                await redis.del("posts")
 
                 return {
                     message: data.message,
@@ -236,6 +255,9 @@ const resolvers = {
                         tags
                     }
                 })
+
+                await redis.del("posts")
+
                 return {
                     message: data.message,
                 };
