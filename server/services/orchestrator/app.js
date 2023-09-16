@@ -13,9 +13,8 @@ const typeDefs = `#graphql
     address: String
   }
   
-  type CreateUserResponse {
+  type Response {
     message: String!
-    user: User
   }
 
   type Query {
@@ -23,7 +22,8 @@ const typeDefs = `#graphql
   }
 
   type Mutation {
-    createUser(username: String, email: String!, password: String!, phoneNumber: String, address: String): CreateUserResponse
+    createUser(username: String, email: String!, password: String!, phoneNumber: String, address: String): Response
+    deleteUser(_id: ID): Response
   }
 `;
 
@@ -51,7 +51,17 @@ const resolvers = {
                 // console.log(data.message)
                 return {
                     message: data.message,
-                    user: data.user // assuming your REST API returns the created user in some form.
+                };
+            } catch (error) {
+                throw new Error(error.response.data.message)
+            }
+        },
+        deleteUser: async function (_, { _id }) {
+            try {
+                const { data } = await axios({ url: "http://localhost:4001/users/" + _id, method: "DELETE" })
+
+                return {
+                    message: data.message,
                 };
             } catch (error) {
                 throw new Error(error.response.data.message)

@@ -61,6 +61,7 @@ class UserController {
     static async delete(req, res, next) {
         try {
             const { id } = req.params
+
             const foundUser = await User.findByPk(id)
             // console.log(foundUser)
             if (!foundUser) throw { name: "userNotFound" }
