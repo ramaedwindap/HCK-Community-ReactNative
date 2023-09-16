@@ -7,7 +7,12 @@ class UserController {
         try {
             const users = await User.findAll()
 
-            res.status(200).json(users)
+            const result = users.map((e) => {
+                delete e.password
+                return e
+            })
+
+            res.status(200).json(result)
         } catch (error) {
             next(error)
         }
@@ -19,6 +24,8 @@ class UserController {
             const user = await User.findByPk(id)
 
             if (!user) throw { name: "userNotFound" }
+
+            delete user.password
 
             res.status(200).json(user)
         } catch (error) {

@@ -19,6 +19,7 @@ const typeDefs = `#graphql
 
   type Query {
     users: [User]
+    user(_id: ID): User
   }
 
   type Mutation {
@@ -34,6 +35,15 @@ const resolvers = {
             try {
                 const { data } = await axios({ url: "http://localhost:4001/users", method: "GET" })
                 // console.log(data)
+                return data
+            } catch (error) {
+                throw new Error(error.response.data.message)
+            }
+        },
+        user: async function (_, { _id }) {
+            try {
+                const { data } = await axios({ url: "http://localhost:4001/users/" + _id, method: "GET" })
+
                 return data
             } catch (error) {
                 throw new Error(error.response.data.message)
