@@ -1,6 +1,17 @@
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
 const { ApolloServer } = require("@apollo/server");
 const { startStandaloneServer } = require("@apollo/server/standalone");
 const axios = require('axios')
+const Redis = require('ioredis');
+
+
+const redis = new Redis({
+    host: process.env.REDIS_HOST,
+    port: 17237,
+    password: process.env.REDIS_PASSWORD
+});
 
 // Define your GraphQL schema using gql tag
 const typeDefs = `#graphql
@@ -65,9 +76,20 @@ const resolvers = {
     Query: {
         users: async function () {
             try {
-                const { data } = await axios({ url: "http://localhost:4001/users", method: "GET" })
-                // console.log(data)
-                return data
+                // await redis.del("users")
+                let result = await redis.get("users")
+
+                if (!result) {
+                    const { data } = await axios({ url: "http://localhost:4001/users", method: "GET" })
+                    result = data
+                    await redis.set("users", JSON.stringify(data))
+                    console.log('set cache posts on redis')
+                } else {
+                    result = JSON.parse(result)
+                    console.log('cache posts from redis')
+                }
+
+                return result
             } catch (error) {
                 throw new Error(error.response.data.message)
             }
@@ -110,7 +132,7 @@ const resolvers = {
                 const { data } = await axios({ url: "http://localhost:4002/posts/" + slug, method: "GET" })
                 // console.log(data)
                 try {
-                    const { data: dataUser } = await axios({ url: "http://localhost:4001/users/" + post.userMongoId, method: "GET" });
+                    const { data: dataUser } = await axios({ url: "http://localhost:4001/users/" + data.userMongoId, method: "GET" });
                     data.user = dataUser
                 } catch (error) {
                     data.user = null
@@ -131,6 +153,8 @@ const resolvers = {
                     method: "POST",
                     data: { username, email, password, phoneNumber, address }
                 })
+
+                await redis.del("users")
                 // console.log(data.message)
                 return {
                     message: data.message,
@@ -142,6 +166,8 @@ const resolvers = {
         deleteUser: async function (_, { _id }) {
             try {
                 const { data } = await axios({ url: "http://localhost:4001/users/" + _id, method: "DELETE" })
+
+                await redis.del("users")
 
                 return {
                     message: data.message,
