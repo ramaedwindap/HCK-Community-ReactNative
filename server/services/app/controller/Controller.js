@@ -245,7 +245,6 @@ class Controller {
                 order: [['createdAt', 'DESC']],
                 include: [
                     { model: Category, as: "category", attributes: { exclude: ['createdAt', 'updatedAt'] } },
-                    { model: User, as: "author", attributes: { exclude: ['password'] } },
                     { model: Tag, as: "tags", attributes: { exclude: ['createdAt', 'updatedAt'] } },
                 ]
             })
@@ -265,7 +264,6 @@ class Controller {
                 where: { slug },
                 include: [
                     { model: Category, as: "category", attributes: ['id', 'name'] },
-                    { model: User, as: "author", attributes: ['id', 'username', 'email'] },
                     { model: Tag, as: "tags", attributes: { exclude: ['createdAt', 'updatedAt'] } },
                 ]
             })
