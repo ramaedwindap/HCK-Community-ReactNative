@@ -55,6 +55,7 @@ const typeDefs = `#graphql
     storeUser(username: String, email: String!, password: String!, phoneNumber: String, address: String): ResponseMessage
     deleteUser(_id: ID): ResponseMessage
     storePost(title: String, content: String, imgUrl: String, categoryId: Int, userMongoId: String, tags: String): ResponseMessage
+    deletePost(id: ID): ResponseMessage
   }
 `;
 
@@ -175,7 +176,18 @@ const resolvers = {
             } catch (error) {
                 throw new Error(error.response ? error.response.data.message : error.message);
             }
-        }
+        },
+        deletePost: async function (_, { id }) {
+            try {
+                const { data } = await axios({ url: "http://localhost:4002/posts/" + id, method: "DELETE" })
+
+                return {
+                    message: data.message,
+                };
+            } catch (error) {
+                throw new Error(error.response.data.message)
+            }
+        },
     }
 };
 
