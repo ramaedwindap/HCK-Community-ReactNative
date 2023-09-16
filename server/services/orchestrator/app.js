@@ -52,8 +52,9 @@ const typeDefs = `#graphql
   }
 
   type Mutation {
-    createUser(username: String, email: String!, password: String!, phoneNumber: String, address: String): ResponseMessage
+    storeUser(username: String, email: String!, password: String!, phoneNumber: String, address: String): ResponseMessage
     deleteUser(_id: ID): ResponseMessage
+    storePost(title: String, content: String, imgUrl: String, categoryId: Int, userMongoId: String, tags: String): ResponseMessage
   }
 `;
 
@@ -90,7 +91,6 @@ const resolvers = {
                             user: dataUser
                         };
                     } catch (error) {
-                        console.error(`Failed to fetch user for post with ID ${post.id}:`, error.message);
                         return {
                             ...post,
                             user: null
@@ -121,7 +121,7 @@ const resolvers = {
         }
     },
     Mutation: {
-        createUser: async function (_, { username, email, password, phoneNumber, address }) {
+        storeUser: async function (_, { username, email, password, phoneNumber, address }) {
             try {
                 const { data } = await axios({
                     url: "http://localhost:4001/users",
@@ -145,6 +145,35 @@ const resolvers = {
                 };
             } catch (error) {
                 throw new Error(error.response.data.message)
+            }
+        },
+        storePost: async function (_, {
+            title,
+            content,
+            imgUrl,
+            categoryId,
+            userMongoId,
+            tags
+        }) {
+            try {
+                const { data } = await axios({
+                    url: "http://localhost:4002/posts",
+                    method: "POST",
+                    data: {
+                        title,
+                        content,
+                        imgUrl,
+                        categoryId,
+                        userMongoId,
+                        tags
+                    }
+                })
+                // console.log(data)
+                return {
+                    message: data.message,
+                };
+            } catch (error) {
+                throw new Error(error.response ? error.response.data.message : error.message);
             }
         }
     }

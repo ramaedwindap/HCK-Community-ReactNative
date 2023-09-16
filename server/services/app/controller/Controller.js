@@ -104,14 +104,14 @@ class Controller {
 
     static async storePost(req, res, next) {
         const transaction = await sequelize.transaction();
-        const { title, content, imgUrl, authorId, tags, categoryId } = req.body
+        const { title, content, imgUrl, userMongoId, tags, categoryId } = req.body
         // console.log(user)
         try {
             const createSlug = slugify(title) + '-' + Math.floor(Math.random() * (999 - 100 + 1) + 100);
 
             if (!tags) throw { name: "tagRequired" }
 
-            const storePost = await Post.create({ title, slug: createSlug, content, imgUrl, authorId, categoryId }, { transaction })
+            const storePost = await Post.create({ title, slug: createSlug, content, userMongoId, imgUrl, categoryId }, { transaction })
 
             const tagArr = tags.replaceAll(/\s/g, '').split('#')
 
