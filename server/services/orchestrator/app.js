@@ -1,4 +1,4 @@
-const { ApolloServer, gql } = require("@apollo/server");
+const { ApolloServer } = require("@apollo/server");
 const { startStandaloneServer } = require("@apollo/server/standalone");
 const axios = require('axios')
 
@@ -12,29 +12,52 @@ const typeDefs = `#graphql
     phoneNumber: String
     address: String
   }
+  
+  type CreateUserResponse {
+    message: String!
+    user: User
+  }
 
   type Query {
-    hello: String
     users: [User]
+  }
+
+  type Mutation {
+    createUser(username: String, email: String!, password: String!, phoneNumber: String, address: String): CreateUserResponse
   }
 `;
 
 // Define your resolvers
 const resolvers = {
     Query: {
-        hello: function () {
-            return 'Hello, world!'
-        },
         users: async function () {
             try {
                 const { data } = await axios({ url: "http://localhost:4001/users", method: "GET" })
                 // console.log(data)
                 return data
             } catch (error) {
-                console.log(error)
+                throw new Error(error.response.data.message)
             }
         }
     },
+    Mutation: {
+        createUser: async function (_, { username, email, password, phoneNumber, address }) {
+            try {
+                const { data } = await axios({
+                    url: "http://localhost:4001/users",
+                    method: "POST",
+                    data: { username, email, password, phoneNumber, address }
+                })
+                // console.log(data.message)
+                return {
+                    message: data.message,
+                    user: data.user // assuming your REST API returns the created user in some form.
+                };
+            } catch (error) {
+                throw new Error(error.response.data.message)
+            }
+        }
+    }
 };
 
 const server = new ApolloServer({
