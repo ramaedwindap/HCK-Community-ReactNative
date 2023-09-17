@@ -149,8 +149,6 @@ class Controller {
         try {
             const foundPost = await Post.findOne({ where: { slug } })
 
-            // console.log(foundPost.id)
-
             if (!foundPost) throw { name: "notFound" }
 
             if (!tags) throw { name: "tagRequired" }
