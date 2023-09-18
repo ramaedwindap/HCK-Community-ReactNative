@@ -41,7 +41,7 @@ const typeDefs = `#graphql
     updatedAt: String,
     category: Category,
     tags: [Tags]
-    user: User
+    author: User
   }
   
   type ResponseMessage {
@@ -49,16 +49,13 @@ const typeDefs = `#graphql
   }
 
   type Query {
-    users: [User]
-    user(_id: ID): User
+    author(_id: ID): User
 
     posts:[Post]
     post(slug: String): Post
   }
 
   type Mutation {
-    storeUser(username: String, email: String!, password: String!, phoneNumber: String, address: String): ResponseMessage
-    deleteUser(_id: ID): ResponseMessage
     storePost(title: String, content: String, imgUrl: String, categoryId: Int, userMongoId: String, tags: String): ResponseMessage
     deletePost(id: ID): ResponseMessage
     updatePost(slug: String, title: String, content: String, imgUrl: String, categoryId: Int, tags: String): ResponseMessage
@@ -70,6 +67,7 @@ const resolvers = {
     Query: {
         posts: async function () {
             try {
+                await redis.del("posts")
                 let result = await redis.get("posts")
 
                 if (!result) {
@@ -80,12 +78,12 @@ const resolvers = {
                             const { data: dataUser } = await axios({ url: "http://localhost:4001/users/" + post.userMongoId, method: "GET" });
                             return {
                                 ...post,
-                                user: dataUser
+                                author: dataUser
                             };
                         } catch (error) {
                             return {
                                 ...post,
-                                user: null
+                                author: null
                             };
                         }
                     }));
@@ -112,9 +110,9 @@ const resolvers = {
                 // console.log(data)
                 try {
                     const { data: dataUser } = await axios({ url: "http://localhost:4001/users/" + data.userMongoId, method: "GET" });
-                    data.user = dataUser
+                    data.author = dataUser
                 } catch (error) {
-                    data.user = null
+                    data.author = null
                 }
                 // console.log(res);
                 return data;
