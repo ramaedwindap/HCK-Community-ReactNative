@@ -1,7 +1,6 @@
 import { Image, ScrollView, Text, View } from 'react-native'
 import convertDate from '../helper/convertDate'
 import { AntDesign } from '@expo/vector-icons';
-import { useEffect, useState } from 'react';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRoute } from '@react-navigation/native';
 import { useQuery, gql } from '@apollo/client';
