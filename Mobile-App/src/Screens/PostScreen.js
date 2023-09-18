@@ -104,12 +104,13 @@ export default function PostScreen() {
                         <View style={{ padding: 15 }}>
                             <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 15 }}>
                                 <Image style={{ width: 50, height: 50, borderRadius: 100, marginRight: 15 }} source={{
-                                    uri: `https://ui-avatars.com/api/?name=${post?.author?.username}`,
+                                    uri: post?.author ? `https://ui-avatars.com/api/?name=${post?.author?.username}` : `https://ui-avatars.com/api/?name=Admin`,
+
                                 }} />
                                 <View>
                                     <Text style={{
                                         fontSize: 18, fontWeight: 600
-                                    }}>{post?.author?.username}</Text>
+                                    }}>{post?.author ? post.author.username : "admin"}</Text>
                                     <Text style={{ fontSize: 15 }}>
                                         {convertDate(post?.createdAt)}
                                     </Text>
