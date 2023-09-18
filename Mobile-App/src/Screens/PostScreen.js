@@ -4,31 +4,57 @@ import { AntDesign } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRoute } from '@react-navigation/native';
+import { useQuery, gql } from '@apollo/client';
 
+
+const GET_POST = gql`
+    query Post($slug: String) {
+      post(slug: $slug) {
+        id
+        title
+        slug
+        content
+        imgUrl
+        categoryId
+        userMongoId
+        createdAt
+        updatedAt
+        category {
+          id
+          name
+        }
+        tags {
+          id
+          postId
+          name
+        }
+        author {
+          _id
+          username
+          email
+          phoneNumber
+          address
+        }
+      }
+    }
+`;
 
 
 export default function PostScreen() {
-    const [post, setPost] = useState({})
     const route = useRoute()
     const { slug } = route.params
 
-    async function fetchPost() {
-        try {
-            const res = await fetch(`https://api-hck.sesber.com/public/posts/${slug}`)
-
-            const data = await res.json()
-
-            if (!res.ok) throw data
-
-            setPost(data)
-        } catch (error) {
-            console.log(error)
+    const { loading, error, data } = useQuery(GET_POST, {
+        variables: {
+            slug
         }
-    }
+    });
 
-    useEffect(() => {
-        fetchPost()
-    }, [])
+    if (loading) return <Text>Loading...</Text>;
+    if (error) return <Text>Error: {error.message}</Text>;
+
+    // Deconstruct posts from data
+    const { post } = data;
 
     return (
         <SafeAreaView>

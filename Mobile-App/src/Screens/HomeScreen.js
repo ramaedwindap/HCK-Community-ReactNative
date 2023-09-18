@@ -32,6 +32,9 @@ const GET_POSTS = gql`
           address
         }
       }
+      topTags {
+        tagName
+      }
     }
 `;
 
@@ -44,7 +47,7 @@ export default function HomeScreen() {
     if (error) return <Text>Error: {error.message}</Text>;
 
     // Deconstruct posts from data
-    const { posts } = data;
+    const { posts, topTags } = data;
 
     return (
         <SafeAreaView style={{ backgroundColor: "rgb(241 245 249)" }}>
@@ -54,13 +57,13 @@ export default function HomeScreen() {
                 ListHeaderComponent={
                     <View style={{ paddingHorizontal: 20, paddingVertical: 8 }}>
                         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                            {/* {topTags.map((tag) => {
+                            {topTags.map((tag) => {
                                 return (
                                     <View key={tag.tagName} style={{ padding: 10, marginRight: 10, borderRadius: 10, backgroundColor: "white" }}>
                                         <Text style={{ fontSize: 13, fontWeight: 500 }}>#{tag.tagName}</Text>
                                     </View>
                                 )
-                            })} */}
+                            })}
                         </ScrollView>
                     </View>
                 }

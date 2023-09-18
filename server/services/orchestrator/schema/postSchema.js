@@ -43,12 +43,17 @@ const typeDefs = `#graphql
     tags: [Tags]
     author: User
   }
+
+  type topTag {
+    tagName: String
+  }
   
   type ResponseMessage {
     message: String!
   }
 
   type Query {
+    topTags: [topTag]
     author(_id: ID): User
 
     posts:[Post]
@@ -116,6 +121,14 @@ const resolvers = {
                 }
                 // console.log(res);
                 return data;
+            } catch (error) {
+                throw new Error(error.response ? error.response.data.message : error.message);
+            }
+        },
+        topTags: async function () {
+            try {
+                const { data } = await axios({ url: "http://localhost:4002/public/top-tags/", method: "GET" })
+                return data
             } catch (error) {
                 throw new Error(error.response ? error.response.data.message : error.message);
             }
