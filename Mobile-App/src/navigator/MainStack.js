@@ -12,16 +12,12 @@ export default function MainStack() {
                 <Stack.Screen
                     options={{
                         headerShown: false,
-                        gestureEnabled: true,
-                        gestureDirection: 'horizontal',
                     }}
                     name="Home"
                     component={HomeScreen} />
                 <Stack.Screen
                     options={{
                         headerShown: false,
-                        gestureEnabled: true,
-                        gestureDirection: 'horizontal',
                     }}
                     name="Detail"
                     component={PostScreen} />
