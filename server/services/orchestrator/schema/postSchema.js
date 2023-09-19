@@ -4,7 +4,7 @@ const axios = require('axios')
 
 const redis = new Redis({
     host: process.env.REDIS_HOST,
-    port: 17237,
+    port: process.env.REDIS_PORT,
     password: process.env.REDIS_PASSWORD
 });
 
