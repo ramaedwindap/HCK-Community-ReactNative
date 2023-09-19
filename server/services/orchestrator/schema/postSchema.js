@@ -72,7 +72,7 @@ const resolvers = {
     Query: {
         posts: async function () {
             try {
-                await redis.del("posts")
+                // await redis.del("posts")
                 let result = await redis.get("posts")
 
                 if (!result) {
