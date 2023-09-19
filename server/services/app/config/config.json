@@ -1,6 +1,10 @@
 {
   "development": {
-    "use_env_variable": "postgresql://postgres:G3sHiS4sGtTg7Leu@db.tsjlshcyfaejkjhezsnd.supabase.co:5432/postgres"
+    "username": "postgres",
+    "password": "postgres",
+    "database": "db_p3_c2",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
   },
   "test": {
     "username": "root",
