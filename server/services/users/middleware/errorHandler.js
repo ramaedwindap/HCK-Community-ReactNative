@@ -18,6 +18,7 @@ function errorHandler(err, req, res, next) {
         case "invalidPassLength":
             return res.status(400).json({ message: "Password length min 5!" })
         case "userNotFound":
+        case "BSONError":
             return res.status(404).json({ message: "User is not found!" })
         case "invalidEmail":
             return res.status(404).json({ message: "Invalid Email Address!" })

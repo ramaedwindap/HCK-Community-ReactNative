@@ -1,0 +1,32 @@
+version: "3.6"
+
+services:
+  service-app:
+    build: ./services/app
+    ports:
+      - "4002:4002"
+    volumes:
+      - ./services/app:/usr/local/app
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: ${DATABASE_URL}
+      SECRET_TOKEN: ${SECRET_TOKEN}
+  service-user:
+    build: ./services/users
+    ports:
+      - "4001:4001"
+    volumes:
+      - ./services/users:/usr/local/user
+    environment:
+      NODE_ENV: production
+      MONGO_ATLAS_PASSWORD: ${MONGO_ATLAS_PASSWORD}
+  service-orchestrator:
+    build: ./services/orchestrator
+    ports:
+      - "80:4000"
+    volumes:
+      - ./services/users:/usr/local/user
+    environment:
+      NODE_ENV: production
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}

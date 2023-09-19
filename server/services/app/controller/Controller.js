@@ -104,14 +104,14 @@ class Controller {
 
     static async storePost(req, res, next) {
         const transaction = await sequelize.transaction();
-        const { title, content, imgUrl, authorId, tags, categoryId } = req.body
+        const { title, content, imgUrl, userMongoId, tags, categoryId } = req.body
         // console.log(user)
         try {
             const createSlug = slugify(title) + '-' + Math.floor(Math.random() * (999 - 100 + 1) + 100);
 
             if (!tags) throw { name: "tagRequired" }
 
-            const storePost = await Post.create({ title, slug: createSlug, content, imgUrl, authorId, categoryId }, { transaction })
+            const storePost = await Post.create({ title, slug: createSlug, content, userMongoId, imgUrl, categoryId }, { transaction })
 
             const tagArr = tags.replaceAll(/\s/g, '').split('#')
 
@@ -148,8 +148,6 @@ class Controller {
         const { slug } = req.params
         try {
             const foundPost = await Post.findOne({ where: { slug } })
-
-            // console.log(foundPost.id)
 
             if (!foundPost) throw { name: "notFound" }
 
@@ -245,7 +243,6 @@ class Controller {
                 order: [['createdAt', 'DESC']],
                 include: [
                     { model: Category, as: "category", attributes: { exclude: ['createdAt', 'updatedAt'] } },
-                    { model: User, as: "author", attributes: { exclude: ['password'] } },
                     { model: Tag, as: "tags", attributes: { exclude: ['createdAt', 'updatedAt'] } },
                 ]
             })
@@ -265,7 +262,6 @@ class Controller {
                 where: { slug },
                 include: [
                     { model: Category, as: "category", attributes: ['id', 'name'] },
-                    { model: User, as: "author", attributes: ['id', 'username', 'email'] },
                     { model: Tag, as: "tags", attributes: { exclude: ['createdAt', 'updatedAt'] } },
                 ]
             })

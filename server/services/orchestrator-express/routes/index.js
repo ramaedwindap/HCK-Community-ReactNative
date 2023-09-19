@@ -3,9 +3,22 @@ const errorHandler = require('../middlewares/errorHandler')
 const PostController = require('../controllers/PostController')
 const UserController = require('../controllers/UserController')
 const router = express.Router()
+const Redis = require('ioredis');
+
+
+const redis = new Redis({
+    host: process.env.REDIS_HOST,
+    port: 17237,
+    password: process.env.REDIS_PASSWORD
+});
 
 router.get('/', (req, res) => {
-    res.send('Server is running!')
+    redis.keys('*').then(keys => {
+        console.log(keys); // This will log all the keys in your Redis store
+    }).catch(err => {
+        console.error(err);
+    });
+    res.send({ msg: 'Server is running!' })
 })
 
 // POST

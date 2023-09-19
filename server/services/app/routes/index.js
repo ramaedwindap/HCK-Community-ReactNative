@@ -28,7 +28,7 @@ router.get('/posts', Controller.indexPost)
 
 router.post('/posts', Controller.storePost)
 
-router.get('/posts/:slug', Controller.showPost)
+router.get('/posts/:slug', Controller.showPublicPost)
 
 router.put('/posts/:slug', Controller.updatePost)
 
