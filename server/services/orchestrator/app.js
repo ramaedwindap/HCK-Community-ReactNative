@@ -19,6 +19,7 @@ const {
 const server = new ApolloServer({
     typeDefs: [userSchemaDefs, postSchemaDefs],
     resolvers: [userSchemaResolvers, postSchemaResolvers],
+    introspection: true
 });
 
 async function startServer() {
