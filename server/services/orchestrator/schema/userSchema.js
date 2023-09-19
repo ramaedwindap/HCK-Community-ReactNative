@@ -42,7 +42,7 @@ const resolvers = {
                 let result = await redis.get("users")
 
                 if (!result) {
-                    const { data } = await axios({ url: "http://localhost:4001/users", method: "GET" })
+                    const { data } = await axios({ url: "http://service-user:4001/users", method: "GET" })
                     result = data
                     await redis.set("users", JSON.stringify(data))
                     console.log('set cache users on redis')
@@ -58,7 +58,7 @@ const resolvers = {
         },
         user: async function (_, { _id }) {
             try {
-                const { data } = await axios({ url: "http://localhost:4001/users/" + _id, method: "GET" })
+                const { data } = await axios({ url: "http://service-user:4001/users/" + _id, method: "GET" })
 
                 return data
             } catch (error) {
@@ -71,7 +71,7 @@ const resolvers = {
         storeUser: async function (_, { username, email, password, phoneNumber, address }) {
             try {
                 const { data } = await axios({
-                    url: "http://localhost:4001/users",
+                    url: "http://service-user:4001/users",
                     method: "POST",
                     data: { username, email, password, phoneNumber, address }
                 })
@@ -87,7 +87,7 @@ const resolvers = {
         },
         deleteUser: async function (_, { _id }) {
             try {
-                const { data } = await axios({ url: "http://localhost:4001/users/" + _id, method: "DELETE" })
+                const { data } = await axios({ url: "http://service-user:4001/users/" + _id, method: "DELETE" })
 
                 await redis.del("users")
 

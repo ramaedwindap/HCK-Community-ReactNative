@@ -76,11 +76,11 @@ const resolvers = {
                 let result = await redis.get("posts")
 
                 if (!result) {
-                    const { data } = await axios({ url: "http://localhost:4002/posts", method: "GET" })
+                    const { data } = await axios({ url: "http://service-app:4002/posts", method: "GET" })
                     // console.log(data)
                     const res = await Promise.all(data.map(async (post) => {
                         try {
-                            const { data: dataUser } = await axios({ url: "http://localhost:4001/users/" + post.userMongoId, method: "GET" });
+                            const { data: dataUser } = await axios({ url: "http://service-user:4001/users/" + post.userMongoId, method: "GET" });
                             return {
                                 ...post,
                                 author: dataUser
@@ -111,10 +111,10 @@ const resolvers = {
         },
         post: async function (_, { slug }) {
             try {
-                const { data } = await axios({ url: "http://localhost:4002/posts/" + slug, method: "GET" })
+                const { data } = await axios({ url: "http://service-app:4002/posts/" + slug, method: "GET" })
                 // console.log(data)
                 try {
-                    const { data: dataUser } = await axios({ url: "http://localhost:4001/users/" + data.userMongoId, method: "GET" });
+                    const { data: dataUser } = await axios({ url: "http://service-user:4001/users/" + data.userMongoId, method: "GET" });
                     data.author = dataUser
                 } catch (error) {
                     data.author = null
@@ -127,7 +127,7 @@ const resolvers = {
         },
         topTags: async function () {
             try {
-                const { data } = await axios({ url: "http://localhost:4002/public/top-tags/", method: "GET" })
+                const { data } = await axios({ url: "http://service-app:4002/public/top-tags/", method: "GET" })
                 return data
             } catch (error) {
                 throw new Error(error.response ? error.response.data.message : error.message);
@@ -146,7 +146,7 @@ const resolvers = {
         }) {
             try {
                 const { data } = await axios({
-                    url: "http://localhost:4002/posts",
+                    url: "http://service-app:4002/posts",
                     method: "POST",
                     data: {
                         title,
@@ -170,7 +170,7 @@ const resolvers = {
         },
         deletePost: async function (_, { id }) {
             try {
-                const { data } = await axios({ url: "http://localhost:4002/posts/" + id, method: "DELETE" })
+                const { data } = await axios({ url: "http://service-app:4002/posts/" + id, method: "DELETE" })
 
                 await redis.del("posts")
 
@@ -191,7 +191,7 @@ const resolvers = {
         }) {
             try {
                 const { data } = await axios({
-                    url: "http://localhost:4002/posts/" + slug,
+                    url: "http://service-app:4002/posts/" + slug,
                     method: "PUT",
                     data: {
                         title,
