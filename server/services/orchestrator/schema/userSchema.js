@@ -13,7 +13,6 @@ const typeDefs = `#graphql
     _id: ID
     username: String
     email : String
-    password: String
     phoneNumber: String
     address: String
   }

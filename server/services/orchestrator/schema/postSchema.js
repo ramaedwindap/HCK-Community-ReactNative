@@ -13,7 +13,6 @@ const typeDefs = `#graphql
     _id: ID
     username: String
     email : String
-    password: String
     phoneNumber: String
     address: String
   }
@@ -54,8 +53,6 @@ const typeDefs = `#graphql
 
   type Query {
     topTags: [topTag]
-    author(_id: ID): User
-
     posts:[Post]
     post(slug: String): Post
   }
