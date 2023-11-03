@@ -1,9 +1,25 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-718a45dd9cf7e7f842a935f5ebbe5719a5e09af4491e668f4dbf3b35d5cca122.svg)](https://classroom.github.com/online_ide?assignment_repo_id=11822558&assignment_repo_type=AssignmentRepo)
-# P3-Challenge-2
+<h1 align="center"> Hck_Community </h1>
 
-UI Library: ...
+<h4 align="center">HCK_Community is a mobile app social network for software developers, inspired by the aesthetic of dev.to. It allows users to view articles on a wide range of topics related to software development, technology, programming, and more.</h4>
 
-Struktur Folder:
+<p align="center">
+  <a href="#techstack">Techstack</a> •
+  <a href="#screenshot">Screenshot</a> •
+  <a href="#structure">Structure</a> 
+</p>
+
+## Techstack
+
+This software uses the following open source packages: React.js, React Native, Docker, Expo, Express, Sequelize,
+PostgreSQL, GraphQL, MongoDB, Redis, AWS EC2, Apollo-Client.
+
+## Screenshot
+
+<br>
+
+![screenshot](./ss.png)
+
+## Structure
 
 - client-mobile
 - server
@@ -12,76 +28,3 @@ Struktur Folder:
   - services
     - users - mongodb (port: 4001)
     - app - postgres (port: 4002)
-
-## W2D2
-
-Target:
-
-- [ ] Memahami `react-native` dan `expo`
-- [ ] Install `expo-cli` & `expo init` & setup project mobile
-- [ ] Mencoba component Text, View, Image, StyleSheet, Button, ScrollView, FlatList
-- [ ] Mencoba useState, useEffect dalam react-native
-- [ ] Hit API server yang sudah dibuat untuk mendapatkan data
-- [ ] Mengetahui bahwa redux & redux-thunk bisa diimplementasi di react-native
-- [ ] Memahami `react-native-navigation`
-- [ ] Memahami Stack Navigation & Tab Navigation
-- [ ] Membuat min 2 Screen (Home, Detail)
-
-**Report:**
-
-...
-
-## W2D3
-
-Target:
-
-- [ ] Memahami React Native Gesture Handler
-- [ ] Memahami NoSQL: Mongodb
-- [ ] Membuat service users dengan Mongodb (Kerjakan di `server/services/users`)
-- [ ] Membuat action pada users: Read, Create & Delete (Update optional)
-
-**Report:**
-
-...
-
-## W2D4
-
-Target:
-
-- [ ] Membuat Server Baru, Microservices
-- [ ] Memisahkan service user dan app
-- [ ] Membuat Orchestrator-express yang bisa komunikasi ke service user dan app
-- [ ] Memahami cache dalam database
-- [ ] Install dataabase Redis dan menggunakan ioRedis sebagai cache
-- [ ] Menjaga relasi User dengan product pada microservice
-
-**Report:**
-
-...
-
-## W2D5
-
-Target:
-
-- [ ] Memahami GraphQL dan tahu perbedaan dengan RESTful API
-- [ ] Membuat Orchestrator dengan menggunakan GraphQL
-- [ ] Memahami Typedefs, Resolvers
-- [ ] Mampu membuat Query dan Mutation
-- [ ] Menggunakan redis pada graphql untuk kebutuhan cache server
-- [ ] Memahami Apollo-Client & Implementasi pada mobile apps
-- [ ] Memahami cache pada Apollo-Client
-
-**Report:**
-
-...
-
-## W3D1
-
-Target:
-
-- [ ] Memahami Docker
-- [ ] Implementasi Docker pada aplikasi server
-
-**Report:**
-
-...
